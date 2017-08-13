@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="weatherApp" ng-controller="weatherCtrl">
+    <head>
+        <title>Austin's Crappy Weather</title>
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+    <body style="background-image:url({{image}}); color:{{color}}">
+        <div id="full" class="container-fluid text-center">
+          <br>
+          <h1>Austin's Crappy Weather</h1>
+          <br/>
+          <div class="quick-info">
+            <h2 id="summary">It's {{summary}} Outside</h2>
+            <h3 id="currentTemp" ng-init="far=true" ng-class="far" ng-show="far">It's {{fTemp}} °F</h3>
+            <h3 id="currentTemp" ng-show="!far">It's {{cTemp}} °C</h3>
+
+            <h3 id="realFeel" ng-init="far = true" ng-class="far" ng-show="far">But it feels {{fRealFeel}} °F</h3>
+            <h3 id="realFeel" ng-show="!far">But it feels {{cRealFeel}} °C</h3>
+
+            <br/><br/>
+            <button id="changeType" style="background-color:#116cff; color:white; font-size:24px;" class= btn btn-primary btn-lg ng-init="far=true" ng-class="far" ng-show="far" ng-click="far =! far">Change to Celsius</button>
+            <button id="changeType" style="background-color:#116cff; color:white; font-size:24px;" class= btn btn-primary btn-lg ng-click="far =! far" ng-show="!far">Change to Fahrenheit</button>
+
+          </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+            <script src="function.js"></script>
+        </div>
+    </body>
+</html>
