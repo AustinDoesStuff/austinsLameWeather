@@ -1,4 +1,8 @@
-var weatherApp = angular.module('weatherApp', []);
+var weatherApp = angular.module('weatherApp', [])
+
+function convertToCelcius(temp){
+    return ((temp-32)*5/9).toFixed(1);
+}
 
 weatherApp.controller('weatherCtrl', function($scope, $http){
     var vm = $scope;
@@ -12,27 +16,35 @@ weatherApp.controller('weatherCtrl', function($scope, $http){
     .success(function(data){
         var lat = data.latitude;
         var lon = data.longitude;
-        vm. city = data.city;
+        //vm. city = data.city;
 
         if(lat && lon){
-            var url = 'https://api.darksky.net/forecast/16b26ca8837563ce04f91d86146e6f9a/'+lat+','+lon;
+            var key = 'ef075e4553ed06dad03e13d66e6e93a0'
+            var url = 'http://api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'&appid='+key+'&units=imperial';
             console.log(url);
             $http.get(url)
             .success(function(data){
-                vm. fTemp = data.currently.temperature;
-                vm. fRealFeel = data.currently.apparentTemperature;
-                vm. summary = data.currently.summary;
-                vm. icon = data.currently.icon;
-                vm. cTemp = ((vm.fTemp-32)*5/9).toFixed(2);
-                vm. cRealFeel = ((vm.fRealFeel-32)*5/9).toFixed(2);
+                vm. fTemp = (data.main.temp).toFixed(1);
+                vm. fTempHigh=data.main.temp_max;
+                vm. fTempLow=data.main.temp_min;
+                vm. humidity = data.main.humidity;
+                vm. description = data.weather[0].description;
+                vm. summary = data.weather[0].main;
+                vm. icon = "http://openweathermap.org/img/w/"+ data.weather[0].icon + ".png";
+                vm. cTemp = convertToCelcius(vm.fTemp);
+                vm. cTempHigh = convertToCelcius(vm.fTempHigh);
+                vm. cTempLow = convertToCelcius(vm.fTempLow);
+                vm. city = data.name;
 
-                switch(vm.icon){
-          case "clear-day":
-            vm.image = 'http://img02.deviantart.net/d2c2/i/2005/028/b/6/clear_day_by_juanchis.jpg';
+                console.log(data.weather[0].main);
+
+                switch(vm.description){
+          case "clear day":
+            vm.image = 'https://i.pinimg.com/originals/fe/ee/42/feee42fdf12266d5a2e6e9aabcacfb28.jpg';
             vm.color = 'black';
             break;
-          case "clear-night":
-            vm.image = 'http://clear-night.com/img/clear-night-placeholder.jpg';
+          case "scattered clouds":
+            vm.image = 'http://2.bp.blogspot.com/-xVDyriNbwGM/Tl9Au5dDjpI/AAAAAAAAKJM/bQayN2Yd2Yc/s1600/sunset%2BIMG_9750.jpg';
             vm.color = 'white';
             break;
           case "rain":
@@ -43,28 +55,24 @@ weatherApp.controller('weatherCtrl', function($scope, $http){
             vm.image = 'https://previews.123rf.com/images/coleong/coleong0801/coleong080100533/2434677-Stock-image-of-a-snowing-winter-at-Boston-Massachusetts-USA-Stock-Photo.jpg';
             vm.color = 'black';
             break;
-          case "sleet":
-            vm.image = 'https://fortymilestocanada.files.wordpress.com/2011/10/img_3189.jpg';
+          case "shower rain":
+            vm.image = 'http://www.bttoronto.ca/wp-content/uploads/sites/2/2016/08/heavyrain-1024x576.jpg';
             vm.color = 'black';
             break;
-          case "wind":
-            vm.image = 'https://media.mnn.com/assets/images/2016/05/01-windydog-carloscherer.jpg.838x0_q80.jpg';
-            vm.color = 'black';
-            break;
-          case "fog":
+          case "mist":
             vm.image = 'http://www.metoffice.gov.uk/binaries/content/gallery/mohippo/images/migrated-image/9/walkers-486583_1920_1.jpg)';
             vm.color = 'black';
             break;
-          case "cloudy":
-            vm.image = "https://upload.wikimedia.org/wikipedia/commons/5/54/Cloudy_hills_in_Elis%2C_Greece_2.jpg";
+          case "few clouds":
+            vm.image = "https://i.ytimg.com/vi/8NTVWJRNvv0/maxresdefault.jpg";
             vm.color = 'black';
             break;
-          case "partly-cloudy-day":
-            vm.image = 'http://ekonomski.mk/wp-content/uploads/2015/02/stabilno-vreme-so-umerena-oblachnost-184186.jpg';
+          case "broken clouds":
+            vm.image = 'https://img13.deviantart.net/fa39/i/2015/052/6/1/broken_clouds_by_leo_6tos-d8ixdlv.jpg';
             vm.color = 'black';
             break;
-          case "partly-cloudy-night":
-            vm.image = 'https://ak6.picdn.net/shutterstock/videos/2303816/thumb/2.jpg';
+          case "thunderstorm":
+            vm.image = 'https://23711-presscdn-pagely.netdna-ssl.com/wp-content/uploads/2015/06/Thunderstorm-5best.jpg';
             vm.color = 'white';
             break;
                       }
