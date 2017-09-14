@@ -2,37 +2,23 @@
 <html ng-app="weatherApp" ng-controller="weatherCtrl">
     <head>
         <meta http-equiv="access-control-allow-origin" content="*"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta charset="utf-8">
         <title>Austin's Crappy Weather</title>
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-          <link rel="stylesheet" href="style.css">
+          <link rel="stylesheet" href="css/weather-icons.css">
+          <link rel="stylesheet" href="css/weather-icons.min.css">
+          <link rel="stylesheet" href="css/style.css">
+
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+          <script src="function.js"></script>
     </head>
-    <body style="background-image:url({{image}}); color:{{color}}">
+    <body style="background-image:url({{image}});">
         <div id="full" class="container-fluid text-center">
-          <br>
-          <h1>Austin's Crappy Weather</h1>
-          <br/>
-          <div class="quick-info">
-            <h2 id="summary">Overview: {{summary}} <img src="{{icon}}"></img> </h2>
-            <br/>
-            <h3 id="currentTemp" ng-init="far=true" ng-class="far" ng-show="far">Temperature: {{fTemp}}°F</h3>
-            <h3 id="currentTemp" ng-show="!far">Temperature: {{cTemp}}°C</h3>
-
-            <h3 id="todaysHigh" ng-init="far=true" ng-class="far" ng-show="far">Today's High: {{fTempHigh}}°F</h3>
-            <h3 id="todaysHigh" ng-show="!far">Today's High: {{cTempHigh}}°C</h3>
-
-            <h3 id="todaysLow" ng-init="far=true" ng-class="far" ng-show="far">Today's Low: {{fTempLow}}°F</h3>
-            <h3 id="todaysLow" ng-show="!far">Today's Low: {{cTempLow}}°C</h3>
-
-            <h3 id="humidity">Humidity: {{humidity}}%</h3>
-
-            <br/><br/>
-          </div>
-
-          <button id="changeType" style="background-color:#116cff; color:white; font-size:24px;" class= btn btn-primary btn-lg ng-init="far=true" ng-class="far" ng-show="far" ng-click="far =! far">Change to Celsius</button>
-          <button id="changeType" style="background-color:#116cff; color:white; font-size:24px;" class= btn btn-primary btn-lg ng-click="far =! far" ng-show="!far">Change to Fahrenheit</button>
-
-            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-            <script src="function.js"></script>
+            <div id="snapshot">
+                <span><i class = "{{icon}}"></i></span>
+                <span class = "{{b}}" id="currentTemp">{{fTemp}}</span>
+            </div>
         </div>
     </body>
 </html>

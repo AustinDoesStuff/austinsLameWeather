@@ -1,0 +1,20 @@
+#snapshot {
+    background-color:rgba(65, 67, 71, 0.33);
+    border-radius:3px;
+    position: relative;
+    margin:15% auto auto auto;
+    width:60%;
+    min-height: 40%;
+    padding:50px 50px;
+    display:table;
+}
+
+#currentTemp {
+    color: white;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.b {
+    color:yellow;
+}
